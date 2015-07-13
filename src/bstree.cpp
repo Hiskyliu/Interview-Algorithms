@@ -6,6 +6,26 @@ BST: binary search tree is a sorted tree. For the key of each node:
 1) is larger than the key in its left subtree, and
 2) is smaller than the key in its right subtree.
 
+algorithms implemented in this for BST includes:
+1) insert (both recursive and non-recursive solution)
+2) search
+3) display (both display in order and display by layer)
+4) destory
+5) convert a bst to a doubly lined list
+6) get the height of a bt/bst
+7) check whether the bst is height-balanced
+8) get the diameter of a bt/bst
+9) check whether the bt/bst is a unival tree (all nodes have the same value)
+
+Diameter: It is the number of nodes on the longest path between two leaves in 
+          the tree. note that there may be more than one path in each tree.
+
+The diameter of a tree T is the largest value of the following quantities:
+* the diameter of T’s left subtree
+* the diameter of T’s right subtree
+* the longest path between leaves that goes through the root of T 
+  (this can be computed from the heights of the subtrees of T) 
+
 General insert/search/ operations, time complexity: O(log(n))
 */
 
@@ -145,6 +165,45 @@ class BSTree
 			return head;
 		}	
 
+		//Interface get the height of the tree
+		int getHeight()
+		{
+			if(nullptr == m_root)
+				return 0;
+			
+			return getHeight(m_root);
+		}
+
+		//Interface check whether the bst is height-balanced
+      	bool isBalanced()
+		{
+			if(nullptr == m_root)  //null tree is balanced tree
+				return true;
+
+			if(-1 == getAndCheckHeight(m_root)) //-1 not balanced
+				return false;   
+			else                                //else balanced
+				return true;  
+		}
+
+		//Interface get the diameter of a bst
+		int getDiameter()
+		{
+			if(nullptr == m_root)
+				return 0;
+
+			return getDiameter(m_root);
+		}
+
+		//Interface check whether the tree is a unival tree
+		bool isUnival()
+		{
+			if(nullptr == m_root)
+				return true;
+			
+			return (isUnival(m_root->left, m_root) && isUnival(m_root->right, m_root));
+		}
+
 	private:
 		void insert(Node* root, DATA key)
 		{
@@ -234,6 +293,75 @@ class BSTree
 			pre = root;  //update pre which is the previous smaller node (not parent node)
 			convertBST2DoublyList(right, pre, head);
 		}
+
+		int getHeight(Node* root)
+		{
+			if(root == nullptr) //base case
+				return 0;
+
+			return 1 + max(getHeight(root->left), getHeight(root->right));
+		}
+
+		int max(int v1, int v2)
+		{
+			return v1 > v2 ? v1 : v2;
+		}
+
+		int getAndCheckHeight(Node* root)
+		{
+			if(root == nullptr) //base case
+				return 0;
+
+			int l_height = 0;
+			int r_height = 0;
+
+			l_height = getAndCheckHeight(root->left); //get left subtree's height
+			if(-1 == l_height) //left subtree is not balanced, return directly
+				return -1;
+
+			r_height = getAndCheckHeight(root->right); //get right subtree's height
+			if(-1 == r_height) //right subtree is not balanced, return directly
+				return -1;
+
+			if(abs(l_height - r_height) > 1) //the difference between left and right is larger than 1, not balanced
+				return -1;
+
+			return 1 + max(l_height, r_height);
+		}
+
+		int getDiameter(Node* root)
+		{
+			if(root == nullptr)  //base case: leafe's null node -- diameter is 0
+				return 0;
+
+			int l_diameter, r_diameter;
+			int l_height, r_height;
+			
+			l_height = getHeight(root->left);
+			r_height = getHeight(root->right);
+
+			l_diameter = getDiameter(root->left);
+			r_diameter = getDiameter(root->right);
+
+			return  max(l_diameter, r_diameter, 1 + l_height + r_height);
+		}
+
+		bool isUnival(Node* p, Node* root)
+		{
+			if(p == nullptr)   //base case
+				return true;
+
+			if(p->data != root->data)
+				return false;
+
+			return (isUnival(p->left, root) && isUnival(p->right, root));
+		}		
+
+		int max(int v1, int v2, int v3)
+		{
+			int v = max(v1, v2);
+			return max(v, v3);
+		}
 };
 
 
@@ -251,6 +379,10 @@ int main(int argc, char* argv[])
 	std::cout<<(t.search(11) == nullptr ? "11 Not found!" : "11 found")<<std::endl;
 	std::cout<<(t.search(2) == nullptr ? "2 Not found!" : "2 found")<<std::endl;
 
+	std::cout <<"Height = "<<t.getHeight()<<std::endl;
+	std::cout <<"Diameter = "<<t.getDiameter()<<std::endl;
+	std::cout <<(t.isBalanced() == true ? "Balanced tree" : "Not Balanced tree")<<std::endl;
+	std::cout <<(t.isUnival() == true ? "Unival tree" : "Not Unival tree")<<std::endl;
 	BSTree::NODE *p = t.convertBST2DoublyList();
 	std::cout<<"Head node: "<<p->data<<"; end node: "<<p->left->data<<std::endl; 
 //	t.destory();
