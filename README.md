@@ -40,6 +40,8 @@ The diameter of a tree T is the largest value of the following quantities:
   (this can be computed from the heights of the subtrees of T)
 
 
+
+
 2. Linked list: time complexity for insertion/search is O(n)
 algorithms implemented for linked list include: 
 
@@ -59,6 +61,7 @@ algorithms implemented for linked list include:
 
 
 
+
 3. Stack: Last in first out (LIFO)
 
 Algorithms implemented for Stack include:
@@ -75,6 +78,8 @@ Algorithms implemented for Stack include:
    which returns the minimum or maxinum element in O(1) time
 
 
+
+
 4. Queue: First in first out (FIFO)
 
 Algorithms implemented for Queue include:
@@ -89,4 +94,33 @@ Algorithms implemented for Queue include:
 
 5) tail -  get the tail item of the queue
 
-6  size - get the size of queue
+6)  size - get the size of queue
+
+
+
+5. Dynamic Programming: the key is to find the State Transition Function (STF).
+1). Coins problem: Given a list/array of coins, and their values (V1, V2, ... , VN),find the minimum number of coins, the sum of which is S.
+d[i]: the minimun number of coins the sum of which is i, so d[0] = 0;
+coins[j]: the value of coin j.
+STF: d[i] = min(d[i-coins[j]] + 1), a[j]<=i; d[i]: the minimun number of coins the sum of which is i;
+
+2). Longest Increasing Subsequence (LIS) problem: The longest Increasing Subsequence (LIS) problem is to find the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order. For example, length of LIS for { 10, 22, 9, 33, 21, 50, 41, 60, 80 } is 6 and LIS is {10, 22, 33, 50, 60, 80}.
+d[i]: LIS for sequence a[0], a[1], ..., a[i]
+STF: d[i] = max(d[j] + 1, 1); 0<=j<i and a[j] < a[i]
+
+3). Maximum sum of non consecutive elements: given an array, find the maximum sum of a subsequence with the constraint that no 2 numbers in the sequence should be adjacent in the array. So 3 2 7 10 should return 13 (sum of 3 and 10) or 3 2 5 10 7 should return 15 (sum of 3, 5 and 7).
+d[i]: Maximum sum of subsequence end of a[i].
+STF: d[i] = max(d[i-1], d[i-2] + 1), 2<=i<n
+
+4). Maximum sum contiguous subsequence: find a contiguous subseqnence (A[i], A[i+1], …, A[j]) such that the sum of the elements in that subsequence is maximized. (Note that, in general, there may be more than one such optimal subsequence.).
+d[i]:  Maximum sum contiguous subsequence a[0],a[1], ..., a[i]
+d[i] = max(d[i-1], end[i]), 1<=i<n
+
+end[i]: the maximun sum contiguous subsequence end of a[i]
+end[i] = max(end[i-1] + a[i], a[i])
+
+5). Longest common subsequence (LCS):  Given two sequences, find the length of longest subsequence present in both of them. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous. For example, “abc”, “abg”, “bdf”, “aeg”, ‘”acefg”, .. etc are subsequences of “abcdefg”. So a string of length n has 2^n different possible subsequences.
+LCS[i][j]: LCS of sequence Ai(a1, a2 ... ai) and Bj(b1, b2 ... bj)
+               =0, i = 0 or j = 0
+STF: LCS[i][j] = LCS[i-1][j-1] + 1, if a[i] = b[j]
+                           max(LCS[i-1][j], LCS[i][j-1]), if a[i] != b[j]
