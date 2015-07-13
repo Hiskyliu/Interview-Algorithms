@@ -28,3 +28,22 @@ The diameter of a tree T is the largest value of the following quantities:
 
 General insert/search/ operations, time complexity: O(log(n))
 
+
+2. Linked list: general operation time complexity is O(n) 
+
+algorithms implemented for linked list include: 
+
+1) insert/add a node
+
+2) reverse a linked list (1->2->3 => 3->2->1)
+
+3) copy the linked list with a random pointer without changing original list
+
+4) reverse pair/two (1->2->3->4->5 => 2->1->4->3->5)
+
+5) find the Nth node from the end of the list
+
+6) print
+
+7) merge two sorted list into one sorted list
+
