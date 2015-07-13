@@ -175,7 +175,7 @@ class BSTree
 		}
 
 		//Interface check whether the bst is height-balanced
-      	bool isBalanced()
+		bool isBalanced()
 		{
 			if(nullptr == m_root)  //null tree is balanced tree
 				return true;
