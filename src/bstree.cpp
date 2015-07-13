@@ -7,15 +7,16 @@ BST: binary search tree is a sorted tree. For the key of each node:
 2) is smaller than the key in its right subtree.
 
 algorithms implemented in this for BST includes:
-1) insert (both recursive and non-recursive solution)
+1) insert (both recursive and non-recursive insertion solution)
 2) search
-3) display (both display in order and display by layer)
-4) destory
-5) convert a bst to a doubly lined list
+3) display (both display in order and printing by layer)
+4) destory/delete
+5) convert a binary search tree to a doubly linked list
 6) get the height of a bt/bst
 7) check whether the bst is height-balanced
 8) get the diameter of a bt/bst
 9) check whether the bt/bst is a unival tree (all nodes have the same value)
+10) find/get the kth smallest element/value
 
 Diameter: It is the number of nodes on the longest path between two leaves in 
           the tree. note that there may be more than one path in each tree.
@@ -204,6 +205,17 @@ class BSTree
 			return (isUnival(m_root->left, m_root) && isUnival(m_root->right, m_root));
 		}
 
+		bool getKthSmallest(int k, DATA &data /*output*/) //k=1: the smallest value
+		{
+			if(nullptr == m_root)
+				return false;
+			
+			int count = 0;
+			bool bFound = false;
+			getKthSmallest(m_root, k, count, data, bFound); //count: number of nodes which has been visited (inorder)
+			return bFound;
+		}
+
 	private:
 		void insert(Node* root, DATA key)
 		{
@@ -362,6 +374,25 @@ class BSTree
 			int v = max(v1, v2);
 			return max(v, v3);
 		}
+
+		//inorder: left->root->right to get the kth smallest value
+		void getKthSmallest(Node* root, int k, int &count,  DATA &data, bool &bFound)
+		{
+			if(root == nullptr)  //base case
+				return;
+			
+			getKthSmallest(root->left, k, count, data, bFound);
+			
+			count += 1;
+			if(count == k)
+			{
+				data = root->data; //find it
+				bFound = true;
+				return;
+			}
+
+			getKthSmallest(root->right, k, count, data, bFound);
+		}
 };
 
 
@@ -374,6 +405,15 @@ int main(int argc, char* argv[])
 
 	std::cout<<"Display in order:"<<std::endl;
 	t.display();
+	BSTree::DATA ret = -1;
+	bool b = t.getKthSmallest(1, ret);
+	std::cout<<(b == true ? "1th smallest value exist: " : "1th smallest value does not exist: ")<<ret<<std::endl;
+	ret = -1;
+	b = t.getKthSmallest(15, ret);
+	std::cout<<(b == true ? "15th smallest value exist: " : "15th smallest value does not exist: ")<<ret<<std::endl;
+	ret = -1;
+	b = t.getKthSmallest(6, ret);
+	std::cout<<(b == true ? "6th smallest value exist: " : "6th smallest value does not exist: ")<<ret<<std::endl;
 	std::cout<<"Display by layer:"<<std::endl;
 	t.displayByLayer();
 	std::cout<<(t.search(11) == nullptr ? "11 Not found!" : "11 found")<<std::endl;
