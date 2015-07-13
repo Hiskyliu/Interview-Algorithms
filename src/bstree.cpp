@@ -132,6 +132,19 @@ class BSTree
 			}
 		}
 
+		//Interface convert bst to doubly linked list -- O(n)
+		Node* convertBST2DoublyList()
+		{
+			if(nullptr == m_root)
+				return nullptr;
+
+			Node* head = nullptr; //head point to the head node of doubly list
+			Node* pre = nullptr;; //pre pointer the previous node which is the previous smaller node
+
+			convertBST2DoublyList(m_root, pre, head);
+			return head;
+		}	
+
 	private:
 		void insert(Node* root, DATA key)
 		{
@@ -196,6 +209,31 @@ class BSTree
 
 			delete root;
 		}
+
+		void convertBST2DoublyList(Node* root, Node* &pre, Node* &head) //reference to pointer
+		{
+			if(root == nullptr)  //base case: already reached to leaf
+				return;
+
+			convertBST2DoublyList(root->left, pre, head);
+
+			root->left = pre; //current node's left point to previous node
+			if(pre)
+			{
+				pre->right = root;  //previous node'right point to current node
+			}
+			else
+			{
+				head =  root;    //head point to the left-most leaf node
+			}
+ 
+			Node* right = root->right;
+			head->left = root;   //head node'left always points to end node
+			root->right = head;  //end node's right always points to head node
+ 
+			pre = root;  //update pre which is the previous smaller node (not parent node)
+			convertBST2DoublyList(right, pre, head);
+		}
 };
 
 
@@ -206,9 +244,15 @@ int main(int argc, char* argv[])
 	for(auto v: a)
 		t.insert(v);	
 
+	std::cout<<"Display in order:"<<std::endl;
 	t.display();
+	std::cout<<"Display by layer:"<<std::endl;
+	t.displayByLayer();
 	std::cout<<(t.search(11) == nullptr ? "11 Not found!" : "11 found")<<std::endl;
 	std::cout<<(t.search(2) == nullptr ? "2 Not found!" : "2 found")<<std::endl;
-	t.destory();
+
+	BSTree::NODE *p = t.convertBST2DoublyList();
+	std::cout<<"Head node: "<<p->data<<"; end node: "<<p->left->data<<std::endl; 
+//	t.destory();
 	return 0;
 }
