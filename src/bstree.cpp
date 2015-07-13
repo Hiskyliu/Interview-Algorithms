@@ -3,7 +3,7 @@
 
 /*
 BST: binary search tree is a sorted tree. For the key of each node:
-1) is larger than the key in its left subtree, and
+1) is larger than the key in its left subtree, and 
 2) is smaller than the key in its right subtree.
 
 algorithms implemented in this for BST includes:
