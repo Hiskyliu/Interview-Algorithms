@@ -153,9 +153,34 @@ Output:  Following words of dictionary are present
          QUIZ
 ```
 DFS Recursive solutions:
+
 1. consider every character as a starting character and find all words starting with it.
 2. All words starting from a character can be found using Depth First Traversal (DFS).
 We do depth first traversal starting from every cell. We keep track of visited cells to make sure
 that a cell is considered only once in a word.
 3. for word dictionary, we can choose trie tree to store the words
+
+
+
+###Large Number Operation
+Algorithms implemented for large number operations include:
+
+1. Large number addition
+```
+        e.g., 123456799 + 9876543221  = 10000000020
+                997654321  (reverse operand1)
+            +   1223456789 (reverse operand2)
+           ---------------
+                02000000001 ==> reverse ==> 10000000020 (final result)
+```
+2. Large number subtration
+```
+e.g.,   807 - 9382 = -8575 (if the result is negative, don not forget the minus sign -- '-')
+if a > b, a-b = a-b; if a < b, a-b = -(b-a) ==> always larger value - smaller value;
+          2839 (reverse operand1)
+      -   708  (reverse operand2)
+  ---------------------------
+          5758 ==> append minus sign "-" ==> "5758-" ==> reverse ==> -8575 (final result)
+```
+*/
 
