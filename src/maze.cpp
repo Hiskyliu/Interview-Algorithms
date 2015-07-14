@@ -66,20 +66,20 @@ class Maze
 					m_maze[cur.x][cur.y-1] = -1;
 				}
 				else  if(outOfBorder(cur.x+1, cur.y) && m_maze[cur.x+1][cur.y] == 0)
-                {
-                    m_path.push_back(Step(cur.x+1, cur.y));
-                    m_maze[cur.x+1][cur.y] = -1;
-                }
+				{
+					m_path.push_back(Step(cur.x+1, cur.y));
+					m_maze[cur.x+1][cur.y] = -1;
+				}
 				else  if(outOfBorder(cur.x, cur.y+1) && m_maze[cur.x][cur.y+1] == 0)
-                {
-                    m_path.push_back(Step(cur.x, cur.y+1));
-                    m_maze[cur.x][cur.y+1] = -1;
-                }
+				{
+					m_path.push_back(Step(cur.x, cur.y+1));
+					m_maze[cur.x][cur.y+1] = -1;
+				}
 				else  if(outOfBorder(cur.x-1, cur.y) && m_maze[cur.x-1][cur.y] == 0)
-                {
-                    m_path.push_back(Step(cur.x-1, cur.y));
-                    m_maze[cur.x-1][cur.y] = -1;
-                }
+				{
+					m_path.push_back(Step(cur.x-1, cur.y));
+					m_maze[cur.x-1][cur.y] = -1;
+				}
 				else
 				{
 					m_path.erase(m_path.end() - 1); 
@@ -110,13 +110,13 @@ class Maze
 				findAllPath(Step(cur.x, cur.y-1), des);
 	
 			if(m_maze[cur.x+1][cur.y] == 0)
-                 findAllPath(Step(cur.x+1, cur.y), des);
+				findAllPath(Step(cur.x+1, cur.y), des);
 
 			if(m_maze[cur.x][cur.y+1] == 0)
-                findAllPath(Step(cur.x, cur.y+1), des);
+				findAllPath(Step(cur.x, cur.y+1), des);
 
 			if(m_maze[cur.x-1][cur.y] == 0)
-                findAllPath(Step(cur.x-1, cur.y), des);
+				findAllPath(Step(cur.x-1, cur.y), des);
 
 			m_path.erase(m_path.end() - 1);
 			m_maze[cur.x][cur.y] = 0;
