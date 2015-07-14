@@ -135,6 +135,80 @@ class Maze
 		}
 };
 
+/*
+Given an array of strings where "L" indicates land and "W" indicates water, and a coordinate marking a starting point in the middle of the ocean.
+
+The Challenge:
+Find and mark the ocean in the map by changing appropriate W's to O's. An ocean coordinate is defined to be any coordinate directly adjacent to any other ocean coordinate. 
+
+Input: 10 x 20
+ LLLLLLLWWLLLLLLLLLLL
+ LLLLLLLLWWLLLLLLLLLL
+ LLLLLLLLLWWWLLLLLLLL
+ LLLLLLLLLLWWWWWWLLLL
+ LLLLLLLLLLWWWWWWLLLL
+ LLLLLLLLLLWWWWWWLLLL
+ LLLLWWLLLLWWWWWWLLLL
+ LLLLWWWLLLWWWWWWWWWW
+ LLLLLWWWWWWWWWWWLLLL
+ LLLLLLLLLLLLLLWWWWLL
+*/
+#define L 'L'
+#define W 'W'
+
+class Matrix
+{
+	private:
+		const static int M = 12; //#row
+		const static int N = 20; //#columns
+		
+		char m_matrix[M][N];    //2D array -- store the input 
+
+	public:
+		Matrix(char a[M][N])
+		{
+			for(auto i = 0; i < M; i++)
+			{
+				for(auto j = 0; j < N; j++)
+				{
+					m_matrix[i][j] = a[i][j];
+				}
+			}
+
+			output();
+		}
+
+		void changeW2O(int x, int y)
+		{
+			if(x < 0 || x >= M || y < 0 || y >= N) //base case1: out of border
+				return;
+
+			if(m_matrix[x][y] == 'L' || m_matrix[x][y] == 'O') //base case2: land or ocean already
+				return;
+
+			m_matrix[x][y] = 'O'; //change W to O
+
+
+			//Try 4 different directions
+			changeW2O(x, y-1);
+			changeW2O(x+1, y);
+			changeW2O(x, y+1);
+			changeW2O(x-1, y);
+		}
+
+		void output()
+		{
+			for(auto i = 0; i < M; i++)
+			{
+				for(auto j = 0; j < N; j++)
+				{
+					std::cout<<m_matrix[i][j]<<" ";
+				}
+				std::cout<<std::endl;
+			}
+		}
+};
+
 int main(int argc, char* argv[])
 {
 	Maze m;
@@ -142,6 +216,25 @@ int main(int argc, char* argv[])
 	std::cout<<(m.findPath(src, des) == true ? "find a path" : "No path") <<std::endl;
 	Maze m1;
 	m1.findAllPath(src, des);
+
+	char a[12][20] = {
+	    {L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L},
+   	 	{L,L,L,L,L,L,L,L,L,L,L,L,L,L,W,L,L,L,L,L},
+    	{L,L,W,W,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L},
+    	{L,L,W,W,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L},
+    	{L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L,L},
+    	{L,L,L,L,L,L,L,W,W,L,L,L,L,L,L,L,L,L,L,L},
+    	{L,L,L,L,L,L,L,L,W,W,L,L,L,L,L,L,L,L,L,L},
+    	{L,L,L,L,L,L,L,L,L,W,W,W,L,L,L,L,L,L,L,L},
+    	{L,L,L,L,L,L,L,L,L,L,W,W,W,W,W,W,L,L,L,L},
+    	{L,L,L,L,L,L,L,L,L,L,W,W,W,W,W,W,L,L,L,L},
+   	 	{L,L,L,L,L,L,L,L,L,L,W,W,W,W,W,W,L,L,L,L},
+    	{L,L,L,L,W,W,L,L,L,L,W,W,W,W,W,W,L,L,L,L}
+  	};
+	Matrix ma(a);
+	ma.changeW2O(5,8);
+	std::cout<<"After change W to O"<<std::endl;
+	ma.output();
 	return 0;
 }
 
