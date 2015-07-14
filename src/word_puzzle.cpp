@@ -61,6 +61,8 @@ class TrieTree
 				m_root =  new Node(); //root node is associated with an empty string
 				m_count = 0;
 			}
+			~TrieTree() //release memory here
+			{}
 
 		public: //publc interface
 			void insert(std::string word)
@@ -147,6 +149,11 @@ class WordPuzzle
 				for(auto j = 0; j < 3; j++)
 					m_letter[i][j] = a[i][j];
 		}
+		~WordPuzzle()
+		{
+			if(m_tree)
+				delete m_tree;
+		}
 
 	public:
 		void addWord(std::string word)
@@ -195,7 +202,7 @@ class WordPuzzle
 			recursive(letter, t, r, c-1, bVisited, res);
 			recursive(letter, t, r-1, c-1, bVisited, res);
 				
-			res.erase(res.end()-1); //back tracking
+			res.erase(res.end()-1); //do not want it
 			bVisited[r][c] = false;		  
 		}
 };
