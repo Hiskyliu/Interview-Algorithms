@@ -9,6 +9,7 @@ BST: binary search tree is a sorted tree. For the key of each node:
 General operations: insert/search/ operations, time complexity: O(log(n))
 
 algorithms implemented for binary search tree includes:
+
 1. insert (both recursive and non-recursive insertion solution)
 2. search
 3. display (both display in order and printing by layer)
@@ -33,6 +34,7 @@ The diameter of a tree T is the largest value of the following quantities:
 time complexity for insertion/search is O(n)
 
 algorithms implemented for linked list include: 
+
 1. insert/add a node
 2. reverse a linked list (1->2->3 => 3->2->1)
 3. copy the linked list with a random pointer and without changing original list
@@ -44,6 +46,7 @@ algorithms implemented for linked list include:
 
 ###Stack: Last in first out (LIFO)
 Algorithms implemented for Stack include:
+
 1. push an item into stack
 2. pop an item from a stack
 3. top - get the top item
@@ -55,6 +58,7 @@ Algorithms implemented for Stack include:
 
 ###Queue: First in first out (FIFO)
 Algorithms implemented for Queue include:
+
 1. enqueue - add an item into the tail of the queue
 2. dequeue - pop an item from the head of the queue
 3. isEmpty check
@@ -104,6 +108,7 @@ STF: LCS[i][j] = LCS[i-1][j-1] + 1, if a[i] = b[j]
 a trie tree, also called prefix tree (as they can be searched by prefixes) or radix tree,it is an ordered tree data structure that is used to store a dynamic set or associative array where the keys are usually strings.
 
 **Typical scenarios:**
+
 1. words frequency statistics;
 2. Prefix matching;
 
