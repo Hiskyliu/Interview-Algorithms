@@ -74,7 +74,7 @@ Algorithms implemented for Queue include:
 coins[j]: the value of coin j.
      STF: d[i] = min(d[i-coins[j]] + 1), a[j]<=i.
 ```
-** Longest Increasing Subsequence (LIS) problem:** The longest Increasing Subsequence (LIS) problem is to find the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order. For example, length of LIS for { 10, 22, 9, 33, 21, 50, 41, 60, 80 } is 6 and LIS is {10, 22, 33, 50, 60, 80}.
+**Longest Increasing Subsequence (LIS) problem:** The longest Increasing Subsequence (LIS) problem is to find the length of the longest subsequence of a given sequence such that all elements of the subsequence are sorted in increasing order. For example, length of LIS for { 10, 22, 9, 33, 21, 50, 41, 60, 80 } is 6 and LIS is {10, 22, 33, 50, 60, 80}.
 ```
 d[i]: LIS for sequence a[0], a[1], ..., a[i].
  STF: d[i] = max(d[j] + 1, 1); 0<=j<i and a[j] < a[i].
