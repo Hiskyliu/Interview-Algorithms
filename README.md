@@ -112,6 +112,7 @@ of a node have a common prefix.Values are normally not associated with every nod
 with leaves and some inner nodes that correspond to keys of interest.
 
 Algorithms implemented for trie tree include:
+
 1. insert a word into trie tree
 2. search whether a word exists
 3. get the count of common prefix
