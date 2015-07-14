@@ -123,3 +123,15 @@ Algorithms implemented for trie tree include:
 3. get the count of common prefix
 4 .get the total number of words
 
+
+###Maze
+Find a path from source point to destination point, 0 indicates you can go through this point, 1 indicates wall, can not go through.
+Algorithms implemented for Maze include:
+
+1. find a path from one one point to another point
+2. find all paths from one point to another point
+
+**DFS:** Depth-first search (DFS) is an algorithm for searching/traversing along a path from the start point as far as possible before backtracking.
+
+For tree or graph data structures. DFS starts at the root (selecting some arbitrary node as the root in the case of a graph) and explores as far as possible along each branch before backtracking.
+
