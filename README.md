@@ -1,5 +1,5 @@
-##Interview Algorithms
-Contain the general interview algorithms
+##Interview Questions -- Algorithms for interview
+Contain the general algorithms implementation for interview
 
 ### Binary Search Tree (BST)
 BST: binary search tree is a sorted tree. For the key of each node:
