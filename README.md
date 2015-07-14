@@ -135,3 +135,27 @@ Algorithms implemented for Maze include:
 
 For tree or graph data structures. DFS starts at the root (selecting some arbitrary node as the root in the case of a graph) and explores as far as possible along each branch before backtracking.
 
+
+###Word Puzzle
+Given a word dictionary, a method to do lookup in dictionary and a M x N board where every cell has one character.
+Find all possible words that can be formed by a sequence of adjacent characters. Note that we can move to any of 8
+adjacent characters, but a word should not have multiple instances of same cell.
+
+Example:
+```
+Input: dictionary[] = {"GEEKS", "FOR", "QUIZ", "GO"};
+       boggle[][]   = {{'G','I','Z'},
+                       {'U','E','K'},
+                       {'Q','S','E'}};
+isWord(str): returns true if str is present in dictionary, else false.
+Output:  Following words of dictionary are present
+         GEEKS
+         QUIZ
+```
+DFS Recursive solutions:
+1. consider every character as a starting character and find all words starting with it.
+2. All words starting from a character can be found using Depth First Traversal (DFS).
+We do depth first traversal starting from every cell. We keep track of visited cells to make sure
+that a cell is considered only once in a word.
+3. for word dictionary, we can choose trie tree to store the words
+
