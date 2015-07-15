@@ -182,5 +182,18 @@ if a > b, a-b = a-b; if a < b, a-b = -(b-a) ==> always larger value - smaller va
   ---------------------------
           5758 ==> append minus sign "-" ==> "5758-" ==> reverse ==> -8575 (final result)
 ```
-*/
+
+
+###Array Questions
+**Sorted Array:**
+
+1. Given a sorted array which may contain repeated elements (e.g., 2,2,2,,4,5,5,6,7,7,7,8), get the number of occurrences for each elements.
+2. Given a sorted array which may contain repeated elements (e.g., 2,2,2,,4,5,5,6,7,7,7,8), given a value v, output the number of occurences for v in this array.
+3) Search for an element in a rotated sorted array, e.g, rotated sorted array: {5, 7, 8, 10, 1, 2, 3, 4}.
+
+**Unsorted Array:**
+
+1. array permutaion and remove duplicated .
+2. find the kth largest value in an array -- use quick selection.
+3. the best time to sell stock (get best profit) and the worst time to sell stock, say stock prices are stored in an array.
 
