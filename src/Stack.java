@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 /*
 Stack: Last in first out (LIFO) 
 Algorithms implemented for Stack include:
@@ -7,6 +9,7 @@ Algorithms implemented for Stack include:
 4) isEmpty() check
 5) design a stack which, in addition to push and pop, also has a function min or max 
    which returns the minimum or maxinum element in O(1) time
+6) implement stack by using two queues
 */
 
 class StackWithMin<T extends Comparable<T>>
@@ -133,18 +136,73 @@ public class Stack<T extends Comparable<T>>
 		}
 		System.out.println("Now begin to pop:");
 		for(int i = 0; i < a.length; i++)
-        {
-        	try
+		{
+			try
 			{ 
 				s.pop();
-            	System.out.println("Top value = " + (Integer)(s.top()));
+				System.out.println("Top value = " + (Integer)(s.top()));
 				System.out.println("Min value = " + (Integer)(s.getMinimun()));
 			}
 			catch(Exception e)
 			{
 				System.out.println("error:" + e.getMessage());
 			}
-        }
-
+		}
 	}
 }
+
+//Stack can be implemented  by using two Queues
+//LinkedList implements the Queue interface
+class StackWithQueue<T>
+{
+	private LinkedList<T> q1 = null;
+	private LinkedList<T> q2 = null;
+
+	StackWithQueue()
+	{
+		q1 = new LinkedList<T>();
+		q2 = new LinkedList<T>();
+	}
+
+	public void push(T x)
+	{
+		if(isEmpty())
+		{
+			q1.offer(x);
+		}
+		else
+		{
+			if(q1.size() > 0)
+			{
+				q2.offer(x);
+				for(int i = 0; i < q1.size(); i++)
+					q2.offer(q1.poll());
+			}
+			else //q2.size() > 0
+			{
+				q1.offer(x);
+				for(int i = 0; i < q2.size(); i++)
+					q1.offer(q2.poll());
+			}
+		}
+	}
+
+	public T poll()
+	{
+			if(isEmpty())
+				return null;
+
+			if(q1.size() > 0)
+				return q1.poll();
+			else if(q2.size() > 0)
+				return q2.poll();
+			else
+				return null;
+	}
+
+	public boolean isEmpty()
+	{
+			return q1.size() == 0 && q2.size() == 0;
+	}
+}
+

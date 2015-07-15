@@ -55,6 +55,7 @@ Algorithms implemented for Stack include:
 5. design a stack which, in addition to push and pop, also has a function min or max
    which returns the minimum or maxinum element in O(1) time
 6. size - get the number of items in stack
+7. implement stack by using two queues
 
 
 ###Queue: First in first out (FIFO)
