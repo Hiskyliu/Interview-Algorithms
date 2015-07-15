@@ -15,13 +15,13 @@ algorithms implemented for binary search tree includes:
 3. display (both display in order and printing by layer)
 4. destory/delete
 5. convert a binary search tree to a doubly linked list
-6. get the height of a binary search tree or binary tree
+6. get the height of a binary (search) tree
 7. check whether the binary (search) tree is height-balanced
-8. get the diameter of a binary search tree or binary tree
-9. check whether the binary search tree is a unival tree (all nodes have the same value)
+8. get the diameter of a binary (search) tree
+9. check whether the binary (search) tree is a unival tree (all nodes have the same value)
 10. find/get the kth smallest element/value from a binary search tree
-11. reverse/invert a binary search tree 
-12. find Lowest Common Ancestor in a Binary Tree
+11. reverse/invert a binary (search) tree 
+12. find lowest common ancestor in a binary (search) tree
 
 **Diameter:** It is the number of nodes on the longest path between two leaves in
           the tree. note that there may be more than one path in each tree.
@@ -178,7 +178,7 @@ Algorithms implemented for large number operations include:
 ```
 2. Large number subtration
 ```
-e.g.,   807 - 9382 = -8575 (if the result is negative, don not forget the minus sign -- '-')
+e.g.,807 - 9382 = -8575
 if a > b, a-b = a-b; 
 if a < b, a-b = -(b-a) ==> always larger value - smaller value;
           2839 (reverse operand1)

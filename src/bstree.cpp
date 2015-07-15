@@ -257,23 +257,21 @@ class BSTree
 			if(nullptr == m_root)
 				return;
 
-			std::vector<Node*> path; //store the temporary from root to v
-			std::vector<Node*> path1; //store the temporary from root to v
-			std::vector<Node*> res; //store the path from root to v
-			std::vector<Node*> res1; //store the path from root to v
+			std::vector<Node*> path; //store the temporary path
+			std::vector<Node*> res1; //store the path from root to v1
+			std::vector<Node*> res2; //store the path from root to v2
 			
-			find(m_root, v1, path, res);		
-			find(m_root, v2, path1, res1);		
+			find(m_root, v1, v2, path, res1, res2);		
 
 			int i = 0;
-			for(; i < res.size() && i < res1.size(); i++)
-				if(res[i]->data != res1[i]->data)
+			for(; i < res1.size() && i < res2.size(); i++)
+				if(res1[i]->data != res2[i]->data)
 					break;
 		
 			if(i == 0)
 				std::cout<<"No common ancestor"<<std::endl;
 			else
-				std::cout<<"Common ancestor: "<<res[i-1]->data<<std::endl;
+				std::cout<<"Common ancestor: "<<res1[i-1]->data<<std::endl;
 		}
 
 	private:
@@ -470,24 +468,34 @@ class BSTree
 			root->right = p;
 		}
 
-		void find(Node* root, int k, std::vector<Node*>& p, std::vector<Node*>& res)
+		//Preorder: root->left->right to find a path
+		void find(Node* root, int k1, int k2, std::vector<Node*>& p, std::vector<Node*>& res1, std::vector<Node*>& res2)
 		{
-			if(root == nullptr) //base case
+			if(root == nullptr)  //base case
 				return;
 
-			p.push_back(root);
-			if(root->data == k) //find the path
+			p.push_back(root);   //want this node
+			if(root->data == k1) //find the path to k1
 			{
-				for(auto v: p)
-					res.push_back(v);	
+				for(auto v: p)     //res1 is used to store the path from root to k1
+					res1.push_back(v);	
+
+				p.erase(p.end()-1);//do not want it, backtracking
+				return;
+			}
+		
+			if(root->data == k2) //find the path to k2
+			{
+				for(auto v: p)     //res2 is used to store the path from root to k2
+					res2.push_back(v);
 
 				p.erase(p.end()-1);
 				return;
 			}
 
-			find(root->left, k, p, res);
-			find(root->right, k, p, res);
-			p.erase(p.end()-1);
+			find(root->left, k1, k2, p, res1, res2);
+			find(root->right, k1, k2, p, res1, res2);
+			p.erase(p.end()-1);  //do not want it, backtracking
 		}
 };
 
