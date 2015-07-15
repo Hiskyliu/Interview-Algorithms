@@ -18,6 +18,7 @@ algorithms implemented in this for BST includes:
 9) check whether the bt/bst is a unival tree (all nodes have the same value)
 10) find/get the kth smallest element/value
 11) Reverse/Invert a bunary search tree or invert a binary tree
+12) find Lowest Common Ancestor in a Binary Tree
 
 Diameter: It is the number of nodes on the longest path between two leaves in 
           the tree. note that there may be more than one path in each tree.
@@ -250,6 +251,31 @@ class BSTree
 			invert(m_root);
 		} 
 
+		//Interface -- find a path from root to the specified node
+		void findCommonAncestor(int v1, int v2)
+		{
+			if(nullptr == m_root)
+				return;
+
+			std::vector<Node*> path; //store the temporary from root to v
+			std::vector<Node*> path1; //store the temporary from root to v
+			std::vector<Node*> res; //store the path from root to v
+			std::vector<Node*> res1; //store the path from root to v
+			
+			find(m_root, v1, path, res);		
+			find(m_root, v2, path1, res1);		
+
+			int i = 0;
+			for(; i < res.size() && i < res1.size(); i++)
+				if(res[i]->data != res1[i]->data)
+					break;
+		
+			if(i == 0)
+				std::cout<<"No common ancestor"<<std::endl;
+			else
+				std::cout<<"Common ancestor: "<<res[i-1]->data<<std::endl;
+		}
+
 	private:
 		void insert(Node* root, DATA key)
 		{
@@ -431,7 +457,7 @@ class BSTree
 		//Postorder left->right->root
 		void invert(Node* root)
 		{
-			if(root == nullptr)
+			if(root == nullptr) //base case
 				return;
 			
 			if(root->left)
@@ -442,6 +468,26 @@ class BSTree
 			Node* p = root->left;
 			root->left = root->right;
 			root->right = p;
+		}
+
+		void find(Node* root, int k, std::vector<Node*>& p, std::vector<Node*>& res)
+		{
+			if(root == nullptr) //base case
+				return;
+
+			p.push_back(root);
+			if(root->data == k) //find the path
+			{
+				for(auto v: p)
+					res.push_back(v);	
+
+				p.erase(p.end()-1);
+				return;
+			}
+
+			find(root->left, k, p, res);
+			find(root->right, k, p, res);
+			p.erase(p.end()-1);
 		}
 };
 
@@ -472,6 +518,14 @@ int main(int argc, char* argv[])
 	t.invertRecursive();
 	std::cout<<"Recursively Invert -- Display by layer:"<<std::endl;
 	t.displayByLayer();
+	std::cout<<"find commmon path to 8, 4"<<std::endl;
+	t.findCommonAncestor(8, 4);
+	std::cout<<"find common path to 10, 14"<<std::endl;
+	t.findCommonAncestor(10, 14);
+	std::cout<<"find common path to 6,35"<<std::endl;
+	t.findCommonAncestor(6, 35);
+	std::cout<<"find common path to 6,38"<<std::endl;
+	t.findCommonAncestor(6, 38);
 	std::cout<<(t.search(11) == nullptr ? "11 Not found!" : "11 found")<<std::endl;
 	std::cout<<(t.search(2) == nullptr ? "2 Not found!" : "2 found")<<std::endl;
 

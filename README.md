@@ -21,6 +21,7 @@ algorithms implemented for binary search tree includes:
 9. check whether the binary search tree is a unival tree (all nodes have the same value)
 10. find/get the kth smallest element/value from a binary search tree
 11. reverse/invert a binary search tree 
+12. find Lowest Common Ancestor in a Binary Tree
 
 **Diameter:** It is the number of nodes on the longest path between two leaves in
           the tree. note that there may be more than one path in each tree.
