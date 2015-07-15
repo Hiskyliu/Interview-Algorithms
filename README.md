@@ -20,6 +20,7 @@ algorithms implemented for binary search tree includes:
 8. get the diameter of a binary search tree or binary tree
 9. check whether the binary search tree is a unival tree (all nodes have the same value)
 10. find/get the kth smallest element/value from a binary search tree
+11. reverse/invert a binary search tree 
 
 **Diameter:** It is the number of nodes on the longest path between two leaves in
           the tree. note that there may be more than one path in each tree.
@@ -176,11 +177,12 @@ Algorithms implemented for large number operations include:
 2. Large number subtration
 ```
 e.g.,   807 - 9382 = -8575 (if the result is negative, don not forget the minus sign -- '-')
-if a > b, a-b = a-b; if a < b, a-b = -(b-a) ==> always larger value - smaller value;
+if a > b, a-b = a-b; 
+if a < b, a-b = -(b-a) ==> always larger value - smaller value;
           2839 (reverse operand1)
       -   708  (reverse operand2)
   ---------------------------
-          5758 ==> append minus sign "-" ==> "5758-" ==> reverse ==> -8575 (final result)
+          5758 ==> append minus sign "-" ==> "5758-" ==> reverse ==> -8575
 ```
 
 
@@ -189,7 +191,7 @@ if a > b, a-b = a-b; if a < b, a-b = -(b-a) ==> always larger value - smaller va
 
 1. Given a sorted array which may contain repeated elements (e.g., 2,2,2,,4,5,5,6,7,7,7,8), get the number of occurrences for each elements.
 2. Given a sorted array which may contain repeated elements (e.g., 2,2,2,,4,5,5,6,7,7,7,8), given a value v, output the number of occurences for v in this array.
-3) Search for an element in a rotated sorted array, e.g, rotated sorted array: {5, 7, 8, 10, 1, 2, 3, 4}.
+3. Search for an element in a rotated sorted array, e.g, rotated sorted array: {5, 7, 8, 10, 1, 2, 3, 4}.
 
 **Unsorted Array:**
 

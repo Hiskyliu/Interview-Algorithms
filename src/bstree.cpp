@@ -17,6 +17,7 @@ algorithms implemented in this for BST includes:
 8) get the diameter of a bt/bst
 9) check whether the bt/bst is a unival tree (all nodes have the same value)
 10) find/get the kth smallest element/value
+11) Reverse/Invert a bunary search tree or invert a binary tree
 
 Diameter: It is the number of nodes on the longest path between two leaves in 
           the tree. note that there may be more than one path in each tree.
@@ -205,6 +206,7 @@ class BSTree
 			return (isUnival(m_root->left, m_root) && isUnival(m_root->right, m_root));
 		}
 
+		//Interface get the kth smallest value
 		bool getKthSmallest(int k, DATA &data /*output*/) //k=1: the smallest value
 		{
 			if(nullptr == m_root)
@@ -215,6 +217,38 @@ class BSTree
 			getKthSmallest(m_root, k, count, data, bFound); //count: number of nodes which has been visited (inorder)
 			return bFound;
 		}
+
+		//Interface invert a bst
+		void invert()
+		{
+			if(nullptr == m_root)
+				return;
+
+			std::vector<Node*> vec;
+			vec.push_back(m_root);
+			int index = 0;
+			while(index < vec.size())
+			{
+				Node* p = vec[index++];
+				if(p->left)
+					vec.push_back(p->left);
+				if(p->right)
+					vec.push_back(p->right);
+
+				Node* tmp = p->left;
+				p->left = p->right;
+				p->right = tmp;
+			}
+		}
+
+		//Interface invert a bst -- recursive solution
+		void invertRecursive()
+		{
+			if(nullptr == m_root)
+				return;
+
+			invert(m_root);
+		} 
 
 	private:
 		void insert(Node* root, DATA key)
@@ -393,6 +427,22 @@ class BSTree
 
 			getKthSmallest(root->right, k, count, data, bFound);
 		}
+
+		//Postorder left->right->root
+		void invert(Node* root)
+		{
+			if(root == nullptr)
+				return;
+			
+			if(root->left)
+				invert(root->left);
+			if(root->right)
+				invert(root->right);
+	
+			Node* p = root->left;
+			root->left = root->right;
+			root->right = p;
+		}
 };
 
 
@@ -415,6 +465,12 @@ int main(int argc, char* argv[])
 	b = t.getKthSmallest(6, ret);
 	std::cout<<(b == true ? "6th smallest value exist: " : "6th smallest value does not exist: ")<<ret<<std::endl;
 	std::cout<<"Display by layer:"<<std::endl;
+	t.displayByLayer();
+	std::cout<<"Invert -- Display by layer:"<<std::endl;
+	t.invert();
+	t.displayByLayer();
+	t.invertRecursive();
+	std::cout<<"Recursively Invert -- Display by layer:"<<std::endl;
 	t.displayByLayer();
 	std::cout<<(t.search(11) == nullptr ? "11 Not found!" : "11 found")<<std::endl;
 	std::cout<<(t.search(2) == nullptr ? "2 Not found!" : "2 found")<<std::endl;
