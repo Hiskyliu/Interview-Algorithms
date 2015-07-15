@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <string.h> //memset
 
 /*
 Array Questions
@@ -13,6 +14,10 @@ Unsorted Array:
 1. array permutaion and remove duplicated .
 2. find the kth largest value in an array -- use quick selection.
 3. the best time to sell stock (get best profit) and the worst time to sell stock, say stock prices are stored in an array.
+4. find the largest subarray with equal number of 0's and 1's from an array which contains 0 and 1, time constraint: O(). e.g., 001010101, output is 8
+5. given a sequence of positive integers A and an integer T, return whether there is a continuous sequence of A that sums up to exactly T. e.g., [23, 5, 4, 7, 2, 11], T = 20. Return True because 7 + 2 + 11 = 20 (continuous sub sequence)
+6. find the largest increasing sub sequence of integers in the integer array
+7. find two numbers in an integer array whose sum is T. If there are multiple pairs with sum sum, just output any one of them
 */
 
 
@@ -183,6 +188,130 @@ class UnsortedArray
 			std::cout<<"Buy = "<<buy<<"; sell = "<<sell<<"; max profit = "<<max_diff<<std::endl;
 		}
 
+		//find the largest subarray with equal number of 0's and 1's from an array which contains 0 and 1
+		//Time constraint is O(n) -- 0s are considered as -1, so sum(i) = sum(j), if 0s and 1s are equal from i to j 
+		static int getLargestSubArray(int a[], int len)
+		{
+			if(nullptr == a)
+				return -1;
+
+			int hash_array[len*2 + 1]; //key = len + sum(0->i); value: index value (i) in a
+			memset(hash_array, -1, sizeof(hash_array));
+			int sum = 0;
+			int max_len = 0;
+
+			for(auto i = 0; i < len; i++)
+			{
+				sum = sum + (a[i] == 0 ? -1 : 1);
+				if(hash_array[len + sum] == -1)   
+				{
+						hash_array[len + sum] = i;  
+				}
+				else  //key exists, means sum(0->j) = sum(0->i)
+				{
+						int pre_index = hash_array[len + sum];
+						if(i - pre_index > max_len)
+							max_len = i - pre_index;
+				}
+			}
+			return max_len;
+		}
+
+		//Given a sequence of positive integers A and an integer T, return whether 
+		//there is a continuous sub sequence of A that sums up to exactly T
+		static bool findSequenceWithValue(int a[], int len, int v)
+		{
+			auto j = 0;
+			auto sum = 0;
+			for(auto i = 0; i < len; i++)
+			{
+				for(; j < len && sum < v; j++)
+					sum += a[j];
+
+				if(sum == v)
+					return true;
+
+				sum -= a[i];
+			}
+
+			return false;
+		}
+
+		//find the largest increasing sub sequence of integers in the array
+		static int findLargestIncrSequence(int a[], int len, int &s, int &e)
+		{
+			if(nullptr == a)
+				return -1;
+
+			if(len == 1)
+			{
+				s = 0;
+				e = 0;
+				return 1;
+			}
+
+			int start = 0;
+			int end = 0;
+			int max_len = 1; //at least 1
+
+			for(auto i = 1; i < len; i++)
+			{
+				if(a[i] > a[i-1])
+				{
+					end = i;
+				}
+				else
+				{
+					if(end - start + 1 > max_len)
+					{
+						max_len = end - start + 1;
+						s = start;
+						e = end;
+					}
+					start = i;
+				}
+			}
+
+			if(end - start + 1 > max_len)
+			{
+				max_len = end - start + 1;
+				s = start;
+				e = end;
+			}
+
+			return max_len;
+		}
+
+		//find two numbers in an integer array whose sum is T.
+		static bool findTwoNumWithSum(int a[], int len, int& num1, int& num2, int sum)
+		{
+			if(nullptr == a)
+				return false;	
+	
+			std::sort(a, a+len); //sort the array first
+
+			int start = 0, end = len - 1, s = 0;
+			while(start < end)
+			{
+				s = a[start] + a[end];
+				if(sum == s)
+				{
+					num1 = a[start];
+					num2 = a[end];
+					return true;
+				}
+				else if(sum < s)
+				{
+					end--;
+				}
+				else
+				{
+					start++;
+				}
+			}
+			return false;
+		}
+
 	private:
 		static void perm(int a[], int s/*start index*/, int len)
 		{
@@ -226,6 +355,7 @@ class UnsortedArray
 			a[j] = tmp;
 		}
 
+		//Average time complexity: O(n) -- if n is extremely large, consider using minheap
 		static int quickSelect(int a[], int s, int e, int len, int k)
 		{
 			if(s <= e)
@@ -292,6 +422,17 @@ int main(int argc, char* argv[])
 	UnsortedArray::findKthLargest(e, 6, 6);
 	int ee[] = {12,3,8,56,1,45};
 	UnsortedArray::getMaxDiff(ee, 6);
+	std::cout<<"Sub sequence sum equal to 68: "<<(UnsortedArray::findSequenceWithValue(ee, 6, 68) == true ? "exist." : "not exist.")<<std::endl;
+	std::cout<<"Sub sequence sum equal to 168: "<<(UnsortedArray::findSequenceWithValue(ee, 6, 168) == true ? "exist." : "not exist.")<<std::endl;
+	int s = -1;
+	int end = -1;
+	int ret = UnsortedArray::findLargestIncrSequence(ee, 6, s, end);
+	std::cout<<"Largest incr sequence: "<<ret<<"; start index = "<<s<<"; end index = "<<end<<std::endl;
+	int f[] = {1,0,0,1,0,1,1,1,0};
+	std::cout<<"Largest subarray with 0s and 1s: "<<UnsortedArray::getLargestSubArray(f, 9)<<std::endl;
+	int num1= 0, num2 = 0;
+	std::cout<<"Find two nums with sum 9: "<<(UnsortedArray::findTwoNumWithSum(ee, 6, num1, num2, 9) == true?"exist":"not exist")<<std::endl;
+	std::cout<<"Find two nums with sum 9: "<<"num1 = "<<num1<<"; num2 = "<<num2<<std::endl;
 	return 0;
 }
 

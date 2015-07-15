@@ -197,7 +197,11 @@ if a < b, a-b = -(b-a) ==> always larger value - smaller value;
 
 **Unsorted Array:**
 
-1. array permutaion and remove duplicated .
-2. find the kth largest value in an array -- use quick selection.
-3. the best time to sell stock (get best profit) and the worst time to sell stock, say stock prices are stored in an array.
+1. array permutaion and remove duplicated 
+2. find the kth largest value in an array -- use quick selection
+3. the best time to sell stock (get best profit) and the worst time to sell stock, say stock prices are stored in an array
+4. find the largest subarray with equal number of 0's and 1's from an array which contains 0 and 1, time constraint: O(). e.g., 001010101, output is 8
+5. given a sequence of positive integers A and an integer T, return whether there is a continuous sequence of A that sums up to exactly T. e.g., [23, 5, 4, 7, 2, 11], T = 20. Return True because 7 + 2 + 11 = 20 (continuous sub sequence)
+6. find the largest increasing sub sequence of integers in the integer array
+7. find two numbers in an integer array whose sum is T. If there are multiple pairs with sum sum, just output any one of them
 
