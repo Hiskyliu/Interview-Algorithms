@@ -214,3 +214,8 @@ if a < b, a-b = -(b-a) ==> always larger value - smaller value;
 6. find the largest increasing sub sequence of integers in the integer array
 7. find two numbers in an integer array whose sum is T. If there are multiple pairs with sum sum, just output any one of them
 
+
+###Producer Consumer Pattern
+**ConcurrentLinkedQueue:** an unbounded thread-safe queue based on linked nodes. It is not a blocking queue, it does not implement the BlockingQueue interface, and therefore doen not provide the blocking method put() and take().
+
+**LinkedBlockingQueue:** an optionally-bounded blocking queue based on linked nodes. It implements the BlockingQueue interface and provides the blocking methods put() and take().
