@@ -107,6 +107,15 @@ STF: LCS[i][j] = LCS[i-1][j-1] + 1, if a[i] = b[j]
                =max(LCS[i-1][j], LCS[i][j-1]), if a[i] != b[j]
 ```
 
+
+**Largest Square Sub-matrix:** Given a 2D binary matrix filled with 0s and 1s, find the largest square containing all 1s and return its size.
+Let say the 2D matrix is M[R][C]. Constructing an auxiliary 2D matrix S[R][C].
+```
+S[i][j]: represents size(length or width) of the square sub-matrix with all 1s including M[i][j] where M[i][j] is the rightmost and bottommost entry in sub-matrix.
+STF: S[i][j] = min(S[i][j-1], S[i-1][j], S[i-1][j-1]) + 1 if M[i][j] = 1, else S[i][j] = 0
+```
+
+
 ###Trie Tree or prefix tree or dict tree
 a trie tree, also called prefix tree (as they can be searched by prefixes) or radix tree,it is an ordered tree data structure that is used to store a dynamic set or associative array where the keys are usually strings.
 

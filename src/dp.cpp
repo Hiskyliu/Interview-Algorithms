@@ -28,6 +28,12 @@ LCS[i][j]: LCS of sequence Ai(a1, a2 ... ai) and Bj(b1, b2 ... bj)
                =0, i = 0 or j = 0
 STF: LCS[i][j] = LCS[i-1][j-1] + 1, if a[i] = b[j]
 			   max(LCS[i-1][j], LCS[i][j-1]), if a[i] != b[j]				
+
+6). Largest Square Sub-matrix: Given a 2D binary matrix filled with 0's and 1's, find the largest square containing all 1's and return its size.
+Let say the 2D matrix is M[R][C]. Constructing an auxiliary 2D matrix S[R][C].
+ 
+S[i][j]: represents size(length or width) of the square sub-matrix with all 1s including M[i][j] where M[i][j] is the rightmost and bottommost entry in sub-matrix.
+STF: S[i][j] = min(S[i][j-1], S[i-1][j], S[i-1][j-1]) + 1 if M[i][j] = 1, else S[i][j] = 0
 */
 
 class Dp
@@ -35,6 +41,9 @@ class Dp
 	private:
 		static const int MAX = 65535353;
 		static const int MIN = -65535;
+		static const int R = 6;
+		static const int C = 5;
+
 	public:
 		//coins: d[i] = min(d[i-coins[j]] + 1), coins[j] <= i
 		static int getMinimumCoins(int coins[]/*input coins array*/, int len/*array len*/, int s/*input sum*/)
@@ -209,6 +218,59 @@ class Dp
 			delete lcs;
 			return max_len;
 		}
+
+		//Get the largest size square sub-matrix with all 1s, s[i][j] = min(s[i-1][j-1], s[i-1][j], s[i][j-1])
+		static int getLargestSquare(int m[R][C])
+		{
+			int** s = new int*[R];
+			for(auto i = 0; i < R; i++)
+				s[i] = new int[C];
+			
+			int max_len = 0;
+			for(auto i = 0; i < C; i++)
+			{
+				s[0][i] = m[0][i];
+				if(s[0][i] > max_len)
+					max_len = s[0][i];
+			}
+
+			for(auto i = 0; i < R; i++)
+			{
+				s[i][0] = m[i][0];
+				if(s[i][0] > max_len)
+					max_len = s[i][0];
+			}
+
+			for(auto i = 1; i < R; i++)
+			{
+				for(auto j = 1; j < C; j++)
+				{
+					if(m[i][j] == 0)
+					{
+						s[i][j] = 0;
+					}
+					else
+					{
+						s[i][j] = 1 + min(s[i-1][j-1], s[i-1][j], s[i][j-1]);
+					}
+
+					if(s[i][j] > max_len)
+						max_len = s[i][j];
+				}
+			}
+
+			for(auto i = 0; i < R; i++)
+				delete[] s[i];
+			delete s;
+			return max_len*max_len;
+		}
+
+	private:
+		static int min(int a, int b, int c)
+		{
+				int t = a < b ? a : b;
+				return t < c ? t : c;
+		}
 };
 
 int main(int argc, char* argv[])
@@ -224,6 +286,8 @@ int main(int argc, char* argv[])
 	std::string s1 = "AGGTAB";
 	std::string s2 = "GXTXAYB";
 	std::cout<<"LCS: "<<Dp::getLCS(s1, s2)<<std::endl;
+	int a[6][5]={{0,1,1,0,1},{1,1,0,1,0},{0,1,1,1,0},{1,1,1,1,0},{1,1,1,1,1},{0,0,0,0,0}};
+	std::cout<<"Largest square size: "<<Dp::getLargestSquare(a)<<std::endl;
 	return 0;
 }
 
